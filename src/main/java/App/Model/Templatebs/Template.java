@@ -10,6 +10,7 @@ public class Template {
     private String _templateString;
     private boolean _isConstraint;
 
+    public Template(){}
     public Template(int id,int sqlDialect, int businessRuleType, String templateString, boolean isConstraint) {
         this._id = id;
         this._sqlDialect = sqlDialect;
