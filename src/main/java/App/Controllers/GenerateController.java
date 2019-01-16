@@ -14,7 +14,7 @@ public class GenerateController{
     
 
     @RequestMapping(value ="/generate/{id}", method = RequestMethod.POST, produces = "application/text")
-    public String newType(@PathVariable int id){
+    public String generate(@PathVariable int id){
         
         GenerateService gService = new GenerateService();
 
