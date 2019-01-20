@@ -25,7 +25,7 @@ public class GenerateService {
         Businessrule br = bdao.getRule(id);
         DatabaseType dt = ddao.getdatabaseType(br.databasetype());
         Template template = tdao.getTemplate(br.databasetype(), br.type(), br.constraint());
-        
+        System.out.print(template.templatestring());
         
         String ruletemplate = template.templatestring();
         SimpleTemplateEngine engine = new SimpleTemplateEngine();
@@ -33,6 +33,7 @@ public class GenerateService {
         Map<String,String> bindings = br.bindings();
         bindings.put("operator", br.operator());
         bindings.put("error", br.error());
+        
         Writable rulecode = engine.createTemplate(ruletemplate).make(bindings);
         
         String fulltemplate = dt.triggertemplate() + rulecode.toString();
