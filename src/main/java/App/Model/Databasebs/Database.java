@@ -1,11 +1,13 @@
 package App.Model.Databasebs;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 
 
 public class Database {
 
+    private int _id;
     private String _name;
     private String _username;
     private String _password;
@@ -13,10 +15,12 @@ public class Database {
     private String _schema;
     private String _port;
     private DatabaseType _dialect;
-    private ArrayList<String> _tables;
+    private Map<String,Integer> _tables;
 
-    Database(String name, String username, String password, String host, String schema, String port,
-            DatabaseType dialect, ArrayList<String> tables) {
+    public Database(){}
+    public Database(int id,String name, String username, String password, String host, String schema, String port,
+            DatabaseType dialect, Map<String,Integer> tables) {
+        this._id = id;
         this._name = name;
         this._username = username;
         this._password = password;
@@ -25,6 +29,14 @@ public class Database {
         this._port = port;
         this._dialect = dialect;
         this._tables = tables;
+    }
+
+    public int id(){
+        return this._id;
+    }
+
+    public void setID(int id){
+         this._id = id;
     }
 
     public String name() {
@@ -55,7 +67,7 @@ public class Database {
         return this._dialect;
     }
 
-    public ArrayList<String> tables() {
+    public Map<String,Integer> tables() {
         return this._tables;
     }
 }

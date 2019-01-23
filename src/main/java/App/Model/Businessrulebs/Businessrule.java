@@ -49,7 +49,7 @@ public class Businessrule {
         if(delete){happenon.add("'DEL'");}
         
         this._bindings.put("happenon", String.join(", ", happenon));
-        System.out.print(this._bindings.toString());
+      
 }
 
     public void addBindings( Map<String, String> bindings){

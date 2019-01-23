@@ -8,19 +8,27 @@ import java.sql.SQLException;
 
 import App.Model.Databasebs.Database;
 
-class targetJDBCConnectionManager {
+public class TargetJDBCConnectionManager {
 
     private Database database;
 
-    public targetJDBCConnectionManager(Database database){
+    public TargetJDBCConnectionManager(Database database){
         this.database = database;
     }
 
     
     public  Connection getConnection() throws ClassNotFoundException, SQLException {
-
+        Database database = this.database;
         Connection con = null;
-        con = DriverManager.getConnection("jdbc:oracle:thin:@//ondora04.hu.nl:8521/EDUC14", "tool", "tooldb");
+        try{
+            String url = String.format("jdbc:%s:thin:@//%s:%s/%s", database.dialect().jdbctypecode(),database.host(),database.port(),database.name());
+            con = DriverManager.getConnection(url, database.username(), database.password());
+            System.out.println(con.isValid(10)); 
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+        
         return con;
 
     }
