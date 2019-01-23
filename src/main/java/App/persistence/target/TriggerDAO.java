@@ -17,6 +17,7 @@ public class TriggerDAO {
             Connection con = connectionManager.getConnection();
             Statement stmt = con.createStatement();
             result = stmt.execute(trigger);
+            con.close();
         } catch(Exception e){
             e.printStackTrace();
         }
