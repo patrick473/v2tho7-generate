@@ -5,12 +5,14 @@ package App.Model.Databasebs;
  */
 public class DatabaseType {
 
+    private int _id;
     private String _jdbcTypeCode;
     private String _triggerTemplate;
     private String _constraintTemplate;
 
     public DatabaseType(){}
-    public DatabaseType(String jdbcTypeCode, String triggerTemplate, String constraintTemplate) {
+    public DatabaseType(int id,String jdbcTypeCode, String triggerTemplate, String constraintTemplate) {
+        this._id = id;
         this._jdbcTypeCode = jdbcTypeCode;
         this._triggerTemplate = triggerTemplate;
         this._constraintTemplate = constraintTemplate;

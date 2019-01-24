@@ -13,12 +13,13 @@ import App.Services.GenerateService;
 public class GenerateController{
     
 
-    @RequestMapping(value ="/generate/{id}", method = RequestMethod.POST, produces = "application/text")
-    public String newType(@PathVariable int id){
+    
+    @RequestMapping(value ="/generate/{databaseid}", method = RequestMethod.POST, produces = "application/text")
+    public String newType(@PathVariable int databaseid){
         
         GenerateService gService = new GenerateService();
 
-        String result = gService.generateRule(id);
+        String result = gService.generateIntoDatabase(databaseid);
        
       return result;
     }
