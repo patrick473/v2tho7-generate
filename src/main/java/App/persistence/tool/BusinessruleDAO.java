@@ -27,7 +27,7 @@ public class BusinessruleDAO {
         ArrayList<Businessrule> rules = new ArrayList<Businessrule>();
         try{
             Connection con = this.jdbcInstance.getConnection();
-            PreparedStatement pstmt = con.prepareStatement("select businessrule.id, TARGETTABLE.NAME as targettable ,BUSINESSRULE.name,operator.ACTION as operator, BUSINESSRULE.APPLIED, BUSINESSRULE.CONSTRAINT, BUSINESSRULE.ONINSERT, BUSINESSRULE.ONUPDATE,BUSINESSRULE.ONDELETE, BUSINESSRULE.ERROR, businessrule.businessruletype, database.databasetype from BUSINESSRULE, operator,TARGETTABLE, database where BUSINESSRULE.OPERATOR = OPERATOR.ID and BUSINESSRULE.TARGETTABLE = TARGETTABLE.ID and targettable.database = database.databasetype and businessrule.constraint = 0 and BUSINESSRULE.targettable  = ?");
+            PreparedStatement pstmt = con.prepareStatement("select businessrule.id, TARGETTABLE.NAME as targettable ,BUSINESSRULE.name,operator.ACTION as operator, BUSINESSRULE.APPLIED, BUSINESSRULE.CONSTRAINT, BUSINESSRULE.ONINSERT, BUSINESSRULE.ONUPDATE,BUSINESSRULE.ONDELETE, BUSINESSRULE.ERROR, businessrule.businessruletype, database.databasetype from BUSINESSRULE, operator,TARGETTABLE, database where BUSINESSRULE.OPERATOR = OPERATOR.ID and BUSINESSRULE.TARGETTABLE = TARGETTABLE.ID and targettable.database = database.databasetype and BUSINESSRULE.targettable  = ?");
             pstmt.setInt(1, table);
             ResultSet rs = pstmt.executeQuery();
             while(rs.next()){

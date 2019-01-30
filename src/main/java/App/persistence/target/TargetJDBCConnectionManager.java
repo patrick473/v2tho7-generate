@@ -23,7 +23,7 @@ public class TargetJDBCConnectionManager {
         try{
             String url = String.format("jdbc:%s:thin:@//%s:%s/%s", database.dialect().jdbctypecode(),database.host(),database.port(),database.name());
             con = DriverManager.getConnection(url, database.username(), database.password());
-            System.out.println(con.isValid(10)); 
+            
         }
         catch(Exception e){
             e.printStackTrace();

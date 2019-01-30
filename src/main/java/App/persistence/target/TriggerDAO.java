@@ -22,5 +22,19 @@ public class TriggerDAO {
             e.printStackTrace();
         }
         return result;
+    } 
+    public boolean insertConstraint(Database database,String constraint){
+        TargetJDBCConnectionManager connectionManager = new TargetJDBCConnectionManager(database);
+        boolean result = false;
+        try {
+            Connection con = connectionManager.getConnection();
+            Statement stmt = con.createStatement();
+            System.out.print(constraint);
+            result = stmt.execute(constraint);
+            con.close();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 }
