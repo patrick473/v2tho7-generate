@@ -50,6 +50,7 @@ public class GenerateService {
         String triggerTemplate = database.dialect().triggertemplate();
         String constraintTemplate = database.dialect().constraintTemplate();
         Map<String,String> generalTriggerbindings = new HashMap<String,String>();
+        System.out.print(generalTriggerbindings);
         generalTriggerbindings.put("name", triggerName);
         generalTriggerbindings.put("tablename", name);
         try{
