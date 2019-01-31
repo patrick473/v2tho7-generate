@@ -48,16 +48,26 @@ public class GenerateService {
         String triggerName =  name+"trigger";
         
         String triggerTemplate = database.dialect().triggertemplate();
+        String constraintTemplate = database.dialect().constraintTemplate();
         Map<String,String> generalTriggerbindings = new HashMap<String,String>();
         generalTriggerbindings.put("name", triggerName);
         generalTriggerbindings.put("tablename", name);
         try{
         Writable triggerCode = this.engine.createTemplate(triggerTemplate).make(generalTriggerbindings);
+        Writable constraintCode = this.engine.createTemplate(constraintTemplate).make(generalTriggerbindings);
         ArrayList<Businessrule> rules = this.bdao.getRulesOnTable(id);
         ArrayList<String> triggerCodeList = new ArrayList<String>();
         triggerCodeList.add(triggerCode.toString());
         for (Businessrule rule : rules) {
+            System.out.print(rule.constraint());
+            if(rule.constraint()){
+                trigdao.insertConstraint(database,this.generateConstraint(rule, constraintCode.toString()));
+            }
+            else{
+
+           
             triggerCodeList.add(this.generateRule(rule));
+            }
         }
         String triggerCodeString = String.join("\n", triggerCodeList) + "\n end;";
         this.trigdao.insertTrigger(database, triggerCodeString);
@@ -81,8 +91,23 @@ public class GenerateService {
             Map<String,String> bindings = rule.bindings();
             bindings.put("operator", rule.operator());
             bindings.put("error", rule.error());
+            
             Writable rulecode = engine.createTemplate(template.templatestring()).make(bindings);
             templatecode = rulecode.toString();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+        return templatecode;
+    }
+    public String generateConstraint(Businessrule rule, String constraintTemplate) {
+        String templatecode = "";
+        Template template = tdao.getTemplate(rule.databasetype(), rule.type(), rule.constraint());
+        try {
+            Map<String,String> bindings = rule.bindings();
+            bindings.put("operator", rule.operator());
+            bindings.put("error", rule.error());
+            Writable rulecode = engine.createTemplate(template.templatestring()).make(bindings);
+            templatecode = constraintTemplate + rulecode.toString() + ")";
         } catch(Exception e){
             e.printStackTrace();
         }
